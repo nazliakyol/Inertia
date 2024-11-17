@@ -13,7 +13,9 @@
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="user in users.data"
                 :key="user.id">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ user.name }}
+                    <Link :href="`/users/${user.id}/show`" class="text-black hover:underline">
+                        {{ user.name }}
+                    </Link>
                 </th>
                 <td v-if="user.can.edit" class="px-6 py-4 text-right">
                     <Link :href="`/users/${user.id}/edit`"
@@ -32,10 +34,12 @@
 </template>
 
 <script setup>
-import Pagination from "../../Shared/Pagination.vue";
-import {ref, watch} from 'vue';
+// import Pagination from "@/Shared/Pagination.vue";
+import {ref, watch, defineAsyncComponent} from 'vue';
 import {Inertia} from "@inertiajs/inertia";
 import {throttle, debounce} from "lodash";
+
+let Pagination = defineAsyncComponent(() => import('@/Shared/Pagination.vue'))
 
 let props = defineProps({
     time: String,

@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+
+const webpackConfig = require('./webpack.config');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -16,4 +18,5 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ])
+    .webpackConfig(webpackConfig)
     .version();

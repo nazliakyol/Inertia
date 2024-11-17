@@ -526,6 +526,10 @@ var map = {
 		"./resources/js/Pages/Users/Index.vue",
 		"/js/vendor",
 		"resources_js_Pages_Users_Index_vue"
+	],
+	"./Users/Show.vue": [
+		"./resources/js/Pages/Users/Show.vue",
+		"resources_js_Pages_Users_Show_vue"
 	]
 };
 function webpackAsyncContext(req) {

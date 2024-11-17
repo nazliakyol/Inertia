@@ -55,6 +55,12 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Users/Create');
     })->can('create', 'App\Models\User');
 
+    Route::get('/users/{user}/show', function (User $user) {
+        return Inertia::render('Users/Show', [
+            'user' => $user
+        ]);
+    })->can('show', 'user');
+
     Route::post('/users', function () {
         // validate the request
         $attributes = \Illuminate\Support\Facades\Request::validate(

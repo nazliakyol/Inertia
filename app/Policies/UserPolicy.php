@@ -22,4 +22,9 @@ class UserPolicy
         return  $user->email === 'dummydummy@mail' || $user->email === $model->email;
     }
 
+    public function show(User $user, User $model): bool
+    {
+        return true;
+    }
+
 }
