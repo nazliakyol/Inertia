@@ -31,7 +31,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'stripe_token',
     ];
+
+//    protected $visible = [
+//        'name',
+//        'email',
+//    ];
 
     /**
      * Get the attributes that should be cast.
@@ -50,4 +56,8 @@ class User extends Authenticatable
     {
         return $this->attributes['password'] = bcrypt($value);
     }
+
+//    public function toArray(){
+//        return [];
+//    }
 }
