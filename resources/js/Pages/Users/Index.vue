@@ -34,15 +34,14 @@
 </template>
 
 <script setup>
-// import Pagination from "@/Shared/Pagination.vue";
-import {ref, watch, defineAsyncComponent} from 'vue';
+import {ref, watch, defineAsyncComponent, onMounted } from 'vue';
 import {Inertia} from "@inertiajs/inertia";
 import {throttle, debounce} from "lodash";
+import {useCurrentUser} from "@/Composables/useCurrentUser";
 
 let Pagination = defineAsyncComponent(() => import('@/Shared/Pagination.vue'))
 
 let props = defineProps({
-    time: String,
     users: Object,
     filters: Object,
     can: Object,
@@ -50,12 +49,17 @@ let props = defineProps({
 
 let search = ref(props.filters.search);
 
-watch(search, debounce( function (value) {
-    console.log('triggered');
+watch(search,
+    debounce( function (value) {
     Inertia.get('/users',
         {search: value}, {
             preserveState: true,
             replace: true
         });
 }, 300));
+
+onMounted(()=> {
+    console.log(useCurrentUser().isALifer());
+    // (user.follows({}));
+})
 </script>

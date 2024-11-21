@@ -34,9 +34,9 @@ class User extends Authenticatable
         'stripe_token',
     ];
 
+    // for disable serialization
 //    protected $visible = [
-//        'name',
-//        'email',
+//        '*'
 //    ];
 
     /**

@@ -10,6 +10,8 @@
         <header class="flex justify-between">
             <div class="flex items-center">
                 <h1 class="font-bold text-lg">My App</h1>
+<!--                 these are not working because page props are not available in the layout-->
+<!--                <p class="text-sm ml-4">Latest thread: <link href="#" v-text="$page.props.latestThread.title" /></p>-->
 <!--                <p class="text-sm ml-4">Welcome back, {{ username }}!</p>-->
             </div>
             <Nav/>

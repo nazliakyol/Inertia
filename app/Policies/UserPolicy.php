@@ -14,12 +14,12 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return  $user->email === 'dummydummy@mail';
+        return  $user->email === 'nazlinurakyol@yahoo.com';
     }
 
     public function edit(User $user, User $model): bool
     {
-        return  $user->email === 'dummydummy@mail' || $user->email === $model->email;
+        return  $user->email === 'nazlinurakyol@yahoo.com' || $user->email === $model->email;
     }
 
     public function show(User $user, User $model): bool

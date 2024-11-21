@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\ThreadResource;
+use App\Models\Thread;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -41,6 +43,8 @@ class HandleInertiaRequests extends Middleware
                    'username' => Auth()->user->name,
                ],
            ]  : null,
+            // only() comes from ThreadResource
+            'latestThread' => ThreadResource::make(Thread::latest()->first()->only(['title', 'author.name'])),
         ]);
     }
 }

@@ -12,6 +12,7 @@
     "devDependencies": {
         "@vue/compiler-sfc": "^3.2.19",
         "axios": "^0.21",
+        "highlight.js": "^11.10.0",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",

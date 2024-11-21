@@ -2,29 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class UsersController extends Controller {
 
     public function index(){
         return Inertia::render('Users/Index', [
-            'users' => \App\Models\User::query()
-                ->when(\Illuminate\Support\Facades\Request::input('search'), function ($query, $search) {
-                    $query->where('name', 'like', '%' . $search . '%');
-                })
-                ->paginate(10)
-                ->withQueryString()
-                ->through(function ($user) {
-                    return [
-                        'id' => $user->id,
-                        'name' => $user->name,
-                        'can' => [
-                            'edit' => Auth::user()->can('edit', $user),
-                        ],
-                    ];
-                }),
+            'users' => UserResource::collection(User::query()->paginate(10)->withQueryString()),
             'filters' => \Illuminate\Support\Facades\Request::only(['search']),
             'can' => [
                 'createUser' => Auth::user()->can('create', User::class)
@@ -38,7 +26,7 @@ class UsersController extends Controller {
 
     public function show(User $user) {
         return Inertia::render('Users/Show', [
-            'user' => $user->only(['id', 'name', 'email', 'created_at']),
+            'user' => UserResource::make($user),
         ]);
     }
 
@@ -66,7 +54,7 @@ class UsersController extends Controller {
 
     public function update(User $user){
         // validate the request
-        $attributes = \Illuminate\Support\Facades\Request::validate(
+        $attributes = Request::validate(
             [
                 // removed required cause if not changed the old value will be used
                 'name' => ['string'],

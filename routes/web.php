@@ -6,6 +6,8 @@ use \App\Http\Controllers\Auth\LoginController;
 use \App\Http\Controllers\UsersController;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\SettingsController;
+use \App\Http\Controllers\ThreadsController;
+
 
 // alternative way to use Inertia without rendering the view directly:
 //Route::get('/', function () {
@@ -15,6 +17,9 @@ use \App\Http\Controllers\SettingsController;
 Route::get('/login', [LoginController::class, 'create'])->name('login');
 Route::post('/login', [LoginController::class, 'store']);
 Route::post('/logout', [LoginController::class, 'destroy'])->middleware('auth');
+
+// Threads main page
+Route::get('/threads', [ThreadsController::class, 'index'])->name('threads.index');
 
 Route::middleware('auth')->group(function () {
 
@@ -37,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
     // Edit user
     Route::get('/users/{user}/edit', [UsersController::class, 'edit'])->name('users.edit')->can('edit', 'user');
-    Route::post('/users/{user}/update', [UsersController::class, 'update'])->name('users.update')->can('edit', 'user');
+    Route::post('/users/{user}/update', [UsersController::class, 'update'])->name('users.update');
 
     // Settings main page
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');

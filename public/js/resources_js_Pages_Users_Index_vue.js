@@ -15,12 +15,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Composables_useCurrentUser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Composables/useCurrentUser */ "./resources/js/Composables/useCurrentUser.js");
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    time: String,
     users: Object,
     filters: Object,
     can: Object
@@ -29,13 +30,11 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var props = __props;
-    // import Pagination from "@/Shared/Pagination.vue";
     var Pagination = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineAsyncComponent)(function () {
       return __webpack_require__.e(/*! import() */ "resources_js_Shared_Pagination_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/Shared/Pagination.vue */ "./resources/js/Shared/Pagination.vue"));
     });
     var search = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.filters.search);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(search, (0,lodash__WEBPACK_IMPORTED_MODULE_2__.debounce)(function (value) {
-      console.log('triggered');
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.get('/users', {
         search: value
       }, {
@@ -43,6 +42,10 @@ __webpack_require__.r(__webpack_exports__);
         replace: true
       });
     }, 300));
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      console.log((0,_Composables_useCurrentUser__WEBPACK_IMPORTED_MODULE_3__.useCurrentUser)().isALifer());
+      // (user.follows({}));
+    });
     var __returned__ = {
       Pagination: Pagination,
       props: props,
@@ -50,9 +53,11 @@ __webpack_require__.r(__webpack_exports__);
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
       defineAsyncComponent: vue__WEBPACK_IMPORTED_MODULE_0__.defineAsyncComponent,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia,
       throttle: lodash__WEBPACK_IMPORTED_MODULE_2__.throttle,
-      debounce: lodash__WEBPACK_IMPORTED_MODULE_2__.debounce
+      debounce: lodash__WEBPACK_IMPORTED_MODULE_2__.debounce,
+      useCurrentUser: _Composables_useCurrentUser__WEBPACK_IMPORTED_MODULE_3__.useCurrentUser
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -148,6 +153,64 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "mt-6"
   }, null, 8 /* PROPS */, ["links"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    <div style=\"margin-top: 400px\">"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <p>The current time is {{ time }}. </p>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("        <Link href=\"/users\" class=\"text-blue-500 preserve-scroll\"> Refresh</Link>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    </div>")], 64 /* STABLE_FRAGMENT */);
 }
+
+/***/ }),
+
+/***/ "./resources/js/Composables/useCurrentUser.js":
+/*!****************************************************!*\
+  !*** ./resources/js/Composables/useCurrentUser.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useCurrentUser: () => (/* binding */ useCurrentUser)
+/* harmony export */ });
+/* harmony import */ var _Models_User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Models/User */ "./resources/js/Models/User.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+
+
+function useCurrentUser() {
+  return new _Models_User__WEBPACK_IMPORTED_MODULE_0__["default"](_inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.page.props.auth.user);
+}
+
+/***/ }),
+
+/***/ "./resources/js/Models/User.js":
+/*!*************************************!*\
+  !*** ./resources/js/Models/User.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ User)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var User = /*#__PURE__*/function () {
+  function User() {
+    var attributes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    _classCallCheck(this, User);
+    Object.assign(this, attributes);
+  }
+  return _createClass(User, [{
+    key: "follows",
+    value: function follows(user) {
+      return true;
+    }
+  }, {
+    key: "isALifer",
+    value: function isALifer() {
+      return false;
+    }
+  }]);
+}();
+
 
 /***/ }),
 
